@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Artist & Album</title>
+</head>
+<body>
+    <h2>Search for Artist & Album</h2>
+    <form method="POST">
+        Artist: <input type="text" name="artist"><br><br>
+        Album: <input type="text" name="album"><br><br>
+        <input type="submit" value="Search">
+    </form>
+    <br>
+    <a href="{{ url_for('home') }}">Back to Home</a>
+</body>
+</html>

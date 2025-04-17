@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Add New Entry</title>
+</head>
+<body>
+    <h1>Add New Entry</h1>
+    <form action="{{ url_for('add_new_entry') }}" method="post">
+        <label for="name">Artist Name:</label><br>
+        <input type="text" id="name" name="name" required><br>
+        <label for="track title">Album Name:</label><br>
+        <input type="text" id="track title" name="track title" required><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

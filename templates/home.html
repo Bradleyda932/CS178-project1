@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Music Explorer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            margin: 10px;
+            border-radius: 6px;
+            font-size: 16px;
+            color: white;
+            text-decoration: none;
+        }
+        .btn-view    { background-color: #007bff; }
+        .btn-top     { background-color: #dc3545; }
+        .btn-price   { background-color: #6c757d; }
+        .btn-length  { background-color: #17a2b8; }
+    </style>
+</head>
+<body>
+    <h1>Music Database Search</h1>
+
+    <a href="{{ url_for('viewdb') }}" class="btn btn-view">View All Tracks</a>
+    <a href="{{ url_for('top_artists') }}" class="btn btn-top">Top 10 Artists</a>
+    <a href="{{ url_for('price_form') }}" class="btn btn-price">Search by Price</a>
+    <a href="{{ url_for('time_form') }}" class="btn btn-length">Search by Duration</a>
+
+    <br><br>
+    <h2>User Management</h2>
+    <a href="{{ url_for('add_new_entry') }}" class="btn btn-view">Add New Entry</a>
+    <a href="{{ url_for('delete_entry') }}" class="btn btn-top">Delete Entry</a>
+    <a href="{{ url_for('update_entry') }}" class="btn btn-price">Update Entry</a>
+    <a href="{{ url_for('home') }}" class="btn btn-length">Display All Users</a>
+</body>
+</html>
+

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome to the Music Database</title>
+</head>
+<body>
+    <h1>Welcome to the Music Database Project</h1>
+
+    <ul>
+        <li><a href="{{ url_for('viewdb') }}">View Tracks</a></li>
+        <li><a href="{{ url_for('top_artists') }}">Top Artists</a></li>
+        <li><a href="{{ url_for('price_form') }}">Search by Price</a></li>
+        <li><a href="{{ url_for('time_form') }}">Search by Duration</a></li>
+        <li><a href="{{ url_for('add_user') }}">Add User</a></li>
+        <li><a href="{{ url_for('delete_user') }}">Delete User</a></li>
+        <li><a href="about.html">Back to Home</a></li>
+    </ul>
+</body>
+</html>

@@ -1,0 +1,16 @@
+textbox_html = """<!DOCTYPE html>
+<html>
+<head>
+    <title>Search</title>
+</head>
+<body>
+    <h2>Search the Music Database</h2>
+    <form method="POST">
+        {{ fieldname }}: <input type="text" name="text"><br><br>
+        <input type="submit" value="Search">
+    </form>
+    <br>
+    <a href="{{ url_for('home') }}">Back to Home</a>
+</body>
+</html>
+"""
