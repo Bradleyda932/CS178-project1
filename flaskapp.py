@@ -29,7 +29,8 @@ def execute_query(query, args=()):
         print("Error:", e)
         return []
     
-#display the sqlite query in a html table
+# Kept this from the labs because otherwise the port looks basic. Added a query to display the top 10 artists by TrackCount
+
 def display_html(rows):
     html = ""
     html += """<table><tr><th>ArtistID</th><th>Artist</th><th>Track Title</th><th>Price</th><th>Milliseconds</th></tr>"""
@@ -110,6 +111,8 @@ def top_artists():
     html += "</table>"
     return html
 
+# DynamoDB integration comes here. Screenshots provided in the project description on GitHub Repo. 
+
 @app.route('/add-new-entry', methods=['GET', 'POST'])
 def add_new_entry():
     if request.method == 'POST':
@@ -158,6 +161,8 @@ def update_entry():
         return redirect(url_for('home'))
     else:
         return render_template('update_entry.html')
+        
+# Chose to only use the Artist name and Album title because the price and milliseconds aren't as memorable (nor important), which made my life easier in testing.
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug = True)
