@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Delete Entry</title>
-</head>
+<head><title>Delete Entry</title></head>
 <body>
-    <h2>Delete an Entry</h2>
+    <h2>Delete Artist and Album</h2>
     <form method="POST">
-        Name to delete: <input type="text" name="name"><br><br>
+        Artist: <input type="text" name="artist"><br><br>
+        Album: <input type="text" name="album"><br><br>
         <input type="submit" value="Delete Entry">
     </form>
-    <br>
-    <a href="{{ url_for('home') }}">Back to Home</a>
+    <br><a href="{{ url_for('home') }}">Back to Home</a>
 </body>
 </html>

@@ -1,9 +1,13 @@
 import pymysql
+import boto3
 import creds 
-from flask import Flask
-from flask import render_template, request, flash, redirect, url_for
+from flask import Flask, render_template, request, flash, redirect, url_for
 
 app = Flask(__name__)
+dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+dynamo_table = dynamodb.Table('MusicArtists')
+app.secret_key = 'cs178isFUNkinda'
+
 
 def get_conn():
     conn = pymysql.connect(
@@ -58,7 +62,7 @@ def viewdb():
     rows = execute_query("""SELECT ArtistId, Artist.Name, Track.Name, UnitPrice, Milliseconds
                 FROM Artist JOIN Album using (ArtistID) JOIN Track using (AlbumID)
                 ORDER BY Track.Name 
-                Limit 500""")
+                Limit 50""")
     return display_html(rows)
 
 @app.route("/timequery/<time>")
@@ -66,7 +70,7 @@ def viewtime(time):
     nrows = execute_query("""select ArtistId, Artist.Name, Track.Name, UnitPrice, Milliseconds
             from Artist JOIN Album using (ArtistID) JOIN Track using (AlbumID)
             where Milliseconds > %s order by Track.Name 
-            Limit 500""", (str(time)))
+            Limit 50""", (str(time)))
     return display_html(nrows) 
 
 @app.route("/pricequery/<price>")
@@ -74,7 +78,7 @@ def viewprices(price):
     rows = execute_query("""select ArtistId, Artist.Name, Track.Name, UnitPrice, Milliseconds
             from Artist JOIN Album using (ArtistID) JOIN Track using (AlbumID)
             where UnitPrice = %s order by Track.Name 
-            Limit 500""", (str(price)))
+            Limit 50""", (str(price)))
     return display_html(rows)
 
 @app.route("/pricequerytextbox", methods = ['GET'])
@@ -109,9 +113,13 @@ def top_artists():
 @app.route('/add-new-entry', methods=['GET', 'POST'])
 def add_new_entry():
     if request.method == 'POST':
-        name = request.form['name']
+        artist = request.form['artist']
         album = request.form['album']
-        print("Artist Name:", name, ":", "Album Title:", album)
+        dynamo_table.put_item(Item={
+            'Artist': artist,
+            'Album': album
+        })
+        print("Artist Name:", artist, ":", "Album Title:", album)
         flash('Artist added successfully!', 'success')
         return redirect(url_for('home'))
     else:
@@ -120,8 +128,15 @@ def add_new_entry():
 @app.route('/delete-entry',methods=['GET', 'POST'])
 def delete_entry():
     if request.method == 'POST':
-        name = request.form['name']
-        print("Name to delete:", name)
+        artist = request.form['artist']
+        album = request.form['album']
+        dynamo_table.delete_item(
+            Key={
+                'Artist': artist,
+                'Album': album
+            }
+        )
+        print("Name to delete:", artist, ":", "Album Title:", album)
         flash('User deleted successfully!', 'warning') 
         return redirect(url_for('home'))
     else:
@@ -130,9 +145,15 @@ def delete_entry():
 @app.route('/update-entry',methods=['GET', 'POST'])
 def update_entry():
     if request.method == 'POST':
-        name = request.form['name']
+        artist = request.form['name']
         new_album = request.form['album']
-        print("Update:", name, "->", new_album)
+        dynamo_table.put_item(
+            Item={
+                'Artist': artist,
+                'Album': new_album
+            }
+        )
+        print("Update:", artist, "->", new_album)
         flash('User updated successfully!', 'info')
         return redirect(url_for('home'))
     else:

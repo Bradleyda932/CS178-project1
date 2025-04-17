@@ -1,16 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Add New Entry</title>
-</head>
+<html>
+<head><title>Add Entry</title></head>
 <body>
-    <h1>Add New Entry</h1>
-    <form action="{{ url_for('add_new_entry') }}" method="post">
-        <label for="name">Artist Name:</label><br>
-        <input type="text" id="name" name="name" required><br>
-        <label for="track title">Album Name:</label><br>
-        <input type="text" id="track title" name="track title" required><br>
-        <input type="submit" value="Submit">
+    <h2>Add Artist and Album</h2>
+    <form method="POST">
+        Artist: <input type="text" name="artist"><br><br>
+        Album: <input type="text" name="album"><br><br>
+        <input type="submit" value="Add Entry">
     </form>
+    <br><a href="{{ url_for('home') }}">Back to Home</a>
 </body>
 </html>
